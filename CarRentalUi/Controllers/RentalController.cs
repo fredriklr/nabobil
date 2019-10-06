@@ -82,8 +82,10 @@ namespace CarRentalUi.Controllers
         private AggregatedData GetAggregatedData(IEnumerable<Rental> result)
         {
             decimal amountExTax = result.Sum(a => a.AmountNet);
+            decimal amountIncTax = result.Sum(a => a.Amount);
             decimal tolls = result.Sum(a => a.Tolls);
             decimal excessMileage = result.Sum(a => a.ExcessMileage);
+            decimal excessMileageIncTax = excessMileage / 0.75m;
             decimal totalAmountExTax = amountExTax + excessMileage;
             int totalKm = result.Sum(a => a.Mileage);
             decimal rentalDays = GetDays(result);
@@ -98,7 +100,7 @@ namespace CarRentalUi.Controllers
                 AveragePricePerKilometer = totalAmountExTax/totalKm,
                 NumberOfBookings = result.Count(),
                 NumberOfDaysRented = rentalDays,
-                TotalAmount = result.Sum(a => a.Amount)           
+                TotalAmount = amountIncTax + excessMileageIncTax
             };
         }
 
