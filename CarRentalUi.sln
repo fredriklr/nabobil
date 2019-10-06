@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRentalUi", "CarRentalUi\CarRentalUi.csproj", "{0B1F4806-C463-48E1-9ED5-1B9E69DEE9B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{9B5BEEA1-A0ED-440E-8E02-E0E623D097DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{10B73468-28D1-436F-BE05-97EAEDE44B16}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B1F4806-C463-48E1-9ED5-1B9E69DEE9B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B1F4806-C463-48E1-9ED5-1B9E69DEE9B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B1F4806-C463-48E1-9ED5-1B9E69DEE9B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B1F4806-C463-48E1-9ED5-1B9E69DEE9B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B5BEEA1-A0ED-440E-8E02-E0E623D097DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B5BEEA1-A0ED-440E-8E02-E0E623D097DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B5BEEA1-A0ED-440E-8E02-E0E623D097DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B5BEEA1-A0ED-440E-8E02-E0E623D097DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10B73468-28D1-436F-BE05-97EAEDE44B16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10B73468-28D1-436F-BE05-97EAEDE44B16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10B73468-28D1-436F-BE05-97EAEDE44B16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10B73468-28D1-436F-BE05-97EAEDE44B16}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {084AEEA9-A8F2-4FB6-A7D0-9A145F7DF940}
+	EndGlobalSection
+EndGlobal
