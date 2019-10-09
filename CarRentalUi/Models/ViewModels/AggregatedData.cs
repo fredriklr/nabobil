@@ -11,6 +11,6 @@
         public decimal AverageMilagePerRent { get; set; }
         public decimal AverageMilagePerDay { get; set; }
         public decimal AveragePricePerKilometer { get; set; }
-
+        public decimal TotalTaxResult { get; set; }
     }
 }

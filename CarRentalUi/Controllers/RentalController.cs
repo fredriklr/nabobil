@@ -13,6 +13,9 @@ namespace CarRentalUi.Controllers
 {
     public class RentalController : Controller
     {
+        private static readonly decimal TAX_EXPENSE_PER_KM = 2.8m;
+        private static readonly decimal TAX_PERCENTAGE = 0.22m;
+
         // GET: Rental
         public async Task<ActionResult> Index()
         {
@@ -89,10 +92,12 @@ namespace CarRentalUi.Controllers
             decimal totalAmountExTax = amountExTax + excessMileage;
             int totalKm = result.Sum(a => a.Mileage);
             decimal rentalDays = GetDays(result);
+            decimal totalTaxAbleAmount = totalAmountExTax - (totalKm * TAX_EXPENSE_PER_KM);
+            decimal totalTaxResult = totalTaxAbleAmount * TAX_PERCENTAGE;
 
             return new AggregatedData()
             {
-                TotalAmountExTax = amountExTax + excessMileage,
+                TotalAmountExTax = totalAmountExTax,
                 AverageAmountPerDays = amountExTax/rentalDays,
                 AverageDaysPerRent = rentalDays/result.Count(),
                 AverageMilagePerDay = totalKm/rentalDays,
@@ -100,7 +105,8 @@ namespace CarRentalUi.Controllers
                 AveragePricePerKilometer = totalAmountExTax/totalKm,
                 NumberOfBookings = result.Count(),
                 NumberOfDaysRented = rentalDays,
-                TotalAmount = amountIncTax + excessMileageIncTax
+                TotalAmount = amountIncTax + excessMileageIncTax,
+                TotalTaxResult = totalTaxResult
             };
         }
 
