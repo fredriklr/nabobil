@@ -28,38 +28,187 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model.RegistrationNumbers)
+    @foreach (var registrationNumber in Model.RegistrationNumbers)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item)
-        </td>
-        <td>
-            @Model.Rentals.Where(a => a.RegistrationNumber == item).Count()
-        </td>
-        <td>
-            @Model.Rentals.Where(a => a.RegistrationNumber == item).Select(b =>
-       {
-           var days = (b.Delivery - b.Pickup).TotalDays;
-           var daysRounded = Math.Floor(days);
-           var diff = days - daysRounded;
-           var extraDays = diff >= 0.125 ? 1 : 0;
-           return extraDays + daysRounded;
-       }).Sum(c => c)
-        </td>
-        <td>
-            @Model.Rentals.Where(a => a.RegistrationNumber == item).Sum(b => b.AmountNet + b.ExcessMileage)
-        </td>
-        <td>
-            @Model.Rentals.Where(a => a.RegistrationNumber == item).Sum(b => b.Mileage)
-        </td>
-        <td>
-            @Math.Round(@Model.Rentals.Where(a => a.RegistrationNumber == item).Sum(b => b.AmountNet + b.ExcessMileage) / Model.Rentals.Where(a => a.RegistrationNumber == item).Sum(b => b.Mileage), 2)
-        </td>
-        <td>
-            @Html.ActionLink("More Details", "Details", new { id = item })
-        </td>
-    </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => registrationNumber)
+            </td>
+            <td>
+                @Model.Rentals.Where(a => a.RegistrationNumber == registrationNumber).Count()
+            </td>
+            <td>
+                @Model.Rentals.Where(a => a.RegistrationNumber == registrationNumber).Select(b =>
+           {
+               var days = (b.Delivery - b.Pickup).TotalDays;
+               var daysRounded = Math.Floor(days);
+               var diff = days - daysRounded;
+               var extraDays = diff >= 0.125 ? 1 : 0;
+               return extraDays + daysRounded;
+           }).Sum(c => c)
+            </td>
+            <td>
+                @Model.Rentals.Where(a => a.RegistrationNumber == registrationNumber).Sum(b => b.AmountNet + b.ExcessMileage)
+            </td>
+            <td>
+                @Model.Rentals.Where(a => a.RegistrationNumber == registrationNumber).Sum(b => b.Mileage)
+            </td>
+            <td>
+                @Math.Round(@Model.Rentals.Where(a => a.RegistrationNumber == registrationNumber).Sum(b => b.AmountNet + b.ExcessMileage) / Model.Rentals.Where(a => a.RegistrationNumber == registrationNumber).Sum(b => b.Mileage), 2)
+            </td>
+            <td>
+                @Html.ActionLink("More Details", "Details", new { id = registrationNumber })
+            </td>
+        </tr>
     }
 
 </table>
+
+
+<h2>Last 4 months total and then for each car</h2>
+<h3>Total</h3>
+<table class="table">
+    <tr>
+        <th>
+            Month
+        </th>
+        <th>
+            Year
+        </th>
+        <th>
+            Number of rents
+        </th>
+        <th>
+            Rentaldays
+        </th>
+        <th>
+            Total amount
+        </th>
+        <th>
+            Total milage
+        </th>
+        <th>
+            NOK/km
+        </th>
+    </tr>
+
+    @foreach (var monthAndYearItem in Model.MonthAndYearOfLastXMonths)
+    {
+        var relevantRentals = @Model.Rentals.Where(a => a.Month == monthAndYearItem.Key && a.Year == monthAndYearItem.Value);
+        if (@relevantRentals.Count().Equals(0))
+            continue;
+
+        var monthName = new DateTime(monthAndYearItem.Value, monthAndYearItem.Key, 1).ToString("MMMM");
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => monthName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => monthAndYearItem.Value)
+            </td>
+            <td>
+                @relevantRentals.Count()
+            </td>
+            <td>
+                @relevantRentals.Select(b =>
+                {
+                var days = (b.Delivery - b.Pickup).TotalDays;
+                var daysRounded = Math.Floor(days);
+                var diff = days - daysRounded;
+                var extraDays = diff >= 0.125 ? 1 : 0;
+                return extraDays + daysRounded;
+                }).Sum(c => c)
+            </td>
+            <td>
+                @relevantRentals.Sum(b => b.AmountNet + b.ExcessMileage)
+            </td>
+            <td>
+                @relevantRentals.Sum(b => b.Mileage)
+            </td>
+            <td>
+                @Math.Round(relevantRentals.Sum(b => b.AmountNet + b.ExcessMileage) / relevantRentals.Sum(b => b.Mileage), 2)
+            </td>
+        </tr>
+    }
+
+</table>
+
+@foreach (var registrationNumber in Model.RegistrationNumbers)
+{
+    if (registrationNumber.StartsWith("deleted"))
+    {
+        continue;
+    }
+
+<h3>@Html.DisplayFor(modelItem => registrationNumber)</h3>
+
+    <table class="table">
+        <tr>
+            <th>
+                Month
+            </th>
+            <th>
+                Year
+            </th>
+            <th>
+                Number of rents
+            </th>
+            <th>
+                Rentaldays
+            </th>
+            <th>
+                Total amount
+            </th>
+            <th>
+                Total milage
+            </th>
+            <th>
+                NOK/km
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var monthAndYearItem in Model.MonthAndYearOfLastXMonths)
+        {
+            var relevantRentals = @Model.Rentals.Where(a => a.Month == monthAndYearItem.Key && a.Year == monthAndYearItem.Value && a.RegistrationNumber == registrationNumber);
+            if (@relevantRentals.Count().Equals(0))
+                continue;
+
+            var monthName = new DateTime(monthAndYearItem.Value, monthAndYearItem.Key, 1).ToString("MMMM");
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => monthName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => monthAndYearItem.Value)
+            </td>
+            <td>
+                @relevantRentals.Count()
+            </td>
+            <td>
+                @relevantRentals.Select(b =>
+                {
+                var days = (b.Delivery - b.Pickup).TotalDays;
+                var daysRounded = Math.Floor(days);
+                var diff = days - daysRounded;
+                var extraDays = diff >= 0.125 ? 1 : 0;
+                return extraDays + daysRounded;
+                }).Sum(c => c)
+            </td>
+            <td>
+                @relevantRentals.Sum(b => b.AmountNet + b.ExcessMileage)
+            </td>
+            <td>
+                @relevantRentals.Sum(b => b.Mileage)
+            </td>
+            <td>
+                @Math.Round(relevantRentals.Sum(b => b.AmountNet + b.ExcessMileage) / relevantRentals.Sum(b => b.Mileage), 2)
+            </td>
+            <td>
+                @Html.ActionLink("More Details", "DetailsByYearAndMonth", new { id = registrationNumber, year = monthAndYearItem.Value, month = monthAndYearItem.Key })
+            </td>
+        </tr>
+        }
+
+    </table>
+}

@@ -24,12 +24,13 @@ namespace CarRentalUi.Controllers
             var viewModel = new RentalIndexViewModel()
             {
                 RegistrationNumbers = await repo.GetUniqueRegistrationNumber(),
-                Rentals = await repo.GetAll()
+                Rentals = await repo.GetAll(),
+                MonthAndYearOfLastXMonths = GetMonthAndYearDictionaryOfLastMonths(4)
             };
 
             return View(viewModel);
         }
-
+        
         // GET: Rental/Details/5
         public async Task<ActionResult> Details(string id)
         {
@@ -120,6 +121,20 @@ namespace CarRentalUi.Controllers
                 var extraDays = diff >= 0.125 ? 1 : 0;
                 return extraDays + daysRounded;
             }).Sum(c => c);
+        }
+
+        private Dictionary<int, int> GetMonthAndYearDictionaryOfLastMonths(int numberOfMonths)
+        {
+            Dictionary<int, int> months = new Dictionary<int, int>();
+            DateTime currentDate = DateTime.Today;
+
+            for(int i = 0; i < numberOfMonths; i++)
+            {
+                months.Add(currentDate.Month, currentDate.Year);
+                currentDate = currentDate.AddMonths(-1);
+            }
+
+            return months;
         }
     }
 }

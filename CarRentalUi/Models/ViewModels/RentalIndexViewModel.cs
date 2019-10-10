@@ -10,5 +10,6 @@ namespace CarRentalUi.Models.ViewModels
     {
         public IEnumerable<string> RegistrationNumbers { get; set; }
         public IEnumerable<Rental> Rentals { get; set; }
+        public Dictionary<int, int> MonthAndYearOfLastXMonths { get; set; }
     }
 }
