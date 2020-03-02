@@ -25,7 +25,7 @@ namespace CarRentalUi.Controllers
             {
                 RegistrationNumbers = await repo.GetUniqueRegistrationNumber(),
                 Rentals = await repo.GetAll(),
-                MonthAndYearOfLastXMonths = GetMonthAndYearDictionaryOfLastMonths(6)
+                MonthAndYearOfLastXMonths = GetMonthAndYearDictionaryOfLastMonths(12)
             };
 
             return View(viewModel);
