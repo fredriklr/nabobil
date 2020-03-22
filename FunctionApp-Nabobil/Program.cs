@@ -97,13 +97,6 @@ namespace ReadNabobilFile
                                     rentals[id].ExcessMileage += payout;
                                 break;
                             }
-                        case "Forlenget leie":
-                            {
-                                if (rentals.ContainsKey(id))
-                                    rentals[id].ExcessMileage += payout;
-                                break;
-                            }
-
                         default:
                             {
                                 if (rentals.ContainsKey(id))
