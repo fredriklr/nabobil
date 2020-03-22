@@ -49,6 +49,7 @@ namespace ReadNabobilFile
                 int rowCount = worksheet.Dimension.Rows;
                 //int ColCount = worksheet.Dimension.Columns;
 
+                // Loop once to add all base rentals to rentals-list
                 for (int i = 2; i <= rowCount; i++)
                 {
                     string id = worksheet.Cells[i, 3].Value.ToString();
@@ -73,6 +74,18 @@ namespace ReadNabobilFile
                                     });
                                 break;
                             }
+                    }
+                }
+
+                // Loop again to calculate all the other stuff except of base rental
+                for (int i = 2; i <= rowCount; i++)
+                {
+                    string id = worksheet.Cells[i, 3].Value.ToString();
+                    decimal amount = decimal.Parse(worksheet.Cells[i, 12].Value.ToString());
+                    decimal payout = decimal.Parse(worksheet.Cells[i, 17].Value.ToString());
+
+                    switch (worksheet.Cells[i, 11].Value.ToString())
+                    {
                         case "tolls":
                             {
                                 if (rentals.ContainsKey(id))
