@@ -84,7 +84,9 @@ namespace ReadNabobilFile
                     decimal amount = decimal.Parse(worksheet.Cells[i, 12].Value.ToString());
                     decimal payout = decimal.Parse(worksheet.Cells[i, 17].Value.ToString());
 
-                    switch (worksheet.Cells[i, 11].Value.ToString())
+                    string description = worksheet.Cells[i, 11].Value.ToString();
+
+                    switch (description)
                     {
                         case "tolls":
                             {
@@ -112,7 +114,7 @@ namespace ReadNabobilFile
                             }
                         default:
                             {
-                                if (rentals.ContainsKey(id))
+                                if (rentals.ContainsKey(id) && description != "base rental")
                                     rentals[id].Extra += payout;
                                 break;
                             }
