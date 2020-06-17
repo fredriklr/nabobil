@@ -60,6 +60,11 @@ namespace ReadNabobilFile
                     {
                         case "base rental":
                             {
+                                int milagePickup = 1;
+                                Int32.TryParse(worksheet.Cells[i, 8].Value.ToString(), out milagePickup);
+                                int milageDelivery = 2;
+                                Int32.TryParse(worksheet.Cells[i, 9].Value.ToString(), out milageDelivery);
+
                                 rentals.Add(id,
                                     new Rental()
                                     {
@@ -67,8 +72,8 @@ namespace ReadNabobilFile
                                         Delivery = DateTime.Parse(worksheet.Cells[i, 5].Value.ToString()),
                                         Pickup = DateTime.Parse(worksheet.Cells[i, 4].Value.ToString()),
                                         Id = id,
-                                        MileageDelivery = Int32.Parse(worksheet.Cells[i, 9].Value.ToString()),
-                                        MileagePickup = Int32.Parse(worksheet.Cells[i, 8].Value.ToString()),
+                                        MileageDelivery = milageDelivery,
+                                        MileagePickup = milagePickup,
                                         AmountNet = payout,
                                         RegistrationNumber = worksheet.Cells[i, 7].Value.ToString()
                                     });
