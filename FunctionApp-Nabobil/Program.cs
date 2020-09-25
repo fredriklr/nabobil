@@ -96,7 +96,7 @@ namespace ReadNabobilFile
                     decimal amount = decimal.Parse(worksheet.Cells[i, 12].Value.ToString());
                     decimal payout = decimal.Parse(worksheet.Cells[i, 17].Value.ToString());
 
-                    string description = worksheet.Cells[i, 11].Value.ToString();
+                    string description = worksheet.Cells[i, 11].Value.ToString().ToLower();
 
                     switch (description)
                     {
@@ -118,7 +118,7 @@ namespace ReadNabobilFile
                                     rentals[id].ExcessMileage += payout;
                                 break;
                             }
-                        case "Avtale om kilometer":
+                        case "avtale om kilometer":
                             {
                                 if (rentals.ContainsKey(id))
                                     rentals[id].ExcessMileage += payout;
@@ -126,7 +126,12 @@ namespace ReadNabobilFile
                             }
                         default:
                             {
-                                if (rentals.ContainsKey(id) && description != "base rental")
+                                if (rentals.ContainsKey(id) && description.Contains("utvidelse"))
+                                {
+                                    rentals[id].Amount += amount;
+                                    rentals[id].AmountNet += payout;
+                                }
+                                else if (rentals.ContainsKey(id) && description != "base rental")
                                     rentals[id].Extra += payout;
                                 break;
                             }
