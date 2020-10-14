@@ -118,6 +118,18 @@ namespace ReadNabobilFile
                                     rentals[id].ExcessMileage += payout;
                                 break;
                             }
+                        case "trip_fee":
+                            {
+                                if (rentals.ContainsKey(id))
+                                    rentals[id].Amount += amount;
+                                break;
+                            }
+                        case "risk_based_insurance":
+                            {
+                                if (rentals.ContainsKey(id))
+                                    rentals[id].Amount += amount;
+                                break;
+                            }
                         case "avtale om kilometer":
                             {
                                 if (rentals.ContainsKey(id))
