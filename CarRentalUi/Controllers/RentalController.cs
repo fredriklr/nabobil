@@ -89,7 +89,7 @@ namespace CarRentalUi.Controllers
             decimal amountIncTax = result.Sum(a => a.Amount);
             decimal tolls = result.Sum(a => a.Tolls);
             decimal excessMileage = result.Sum(a => a.ExcessMileage);
-            decimal excessMileageIncTax = excessMileage / 0.75m;
+            decimal excessMileageIncTax = excessMileage / 0.80m;
             decimal totalAmountExTax = amountExTax + excessMileage;
             int totalKm = result.Sum(a => a.Mileage);
             decimal rentalDays = GetDays(result);
