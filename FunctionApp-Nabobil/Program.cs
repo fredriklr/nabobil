@@ -138,7 +138,8 @@ namespace ReadNabobilFile
                             }
                         default:
                             {
-                                if (rentals.ContainsKey(id) && description.Contains("utvidelse"))
+                                // Manuell utvidelse eller justering av leiepris som ikke reflekteres i base rental
+                                if (rentals.ContainsKey(id) && (description.Contains("utvidelse") || description.Contains("leiepris")))
                                 {
                                     rentals[id].Amount += amount;
                                     rentals[id].AmountNet += payout;
