@@ -139,7 +139,7 @@ namespace ReadNabobilFile
                         default:
                             {
                                 // Manuell utvidelse eller justering av leiepris som ikke reflekteres i base rental
-                                if (rentals.ContainsKey(id) && (description.Contains("utvidelse") || description.Contains("utviden") || description.Contains("sen levering") || description.Contains("leiepris") || description.Contains("forsinket") || description.Contains("forlenget")))
+                                if (rentals.ContainsKey(id) && (description.Contains("utvidelse") || description.Contains("utviden") || description.Contains("sen levering") || description.Contains("leiepris") || description.Contains("forsinket") || description.Contains("forlenge") || description.Contains("timer")))
                                 {
                                     rentals[id].Amount += amount;
                                     rentals[id].AmountNet += payout;
