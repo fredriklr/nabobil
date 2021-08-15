@@ -60,6 +60,9 @@ namespace ReadNabobilFile
                     {
                         case "base rental":
                             {
+                                if(worksheet.Cells[i, 7].Value.ToString().StartsWith("deleted"))
+                                    break;
+
                                 int milagePickup = 1;
                                 if (worksheet.Cells[i, 8].Value != null)
                                 {
